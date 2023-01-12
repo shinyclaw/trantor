@@ -79,53 +79,47 @@ void MsgBuffer::append(const char *buf, size_t len)
 }
 void MsgBuffer::appendInt16(const uint16_t s)
 {
-    uint16_t ss = htons(s);
-    append(static_cast<const char *>((void *)&ss), 2);
+    append(static_cast<const char *>((void *)&s), 2);
 }
 void MsgBuffer::appendInt32(const uint32_t i)
 {
-    uint32_t ii = htonl(i);
-    append(static_cast<const char *>((void *)&ii), 4);
+    append(static_cast<const char *>((void *)&i), 4);
 }
 void MsgBuffer::appendInt64(const uint64_t l)
 {
-    uint64_t ll = hton64(l);
-    append(static_cast<const char *>((void *)&ll), 8);
+    append(static_cast<const char *>((void *)&l), 8);
 }
 
 void MsgBuffer::addInFrontInt16(const uint16_t s)
 {
-    uint16_t ss = htons(s);
-    addInFront(static_cast<const char *>((void *)&ss), 2);
+    addInFront(static_cast<const char *>((void *)&s), 2);
 }
 void MsgBuffer::addInFrontInt32(const uint32_t i)
 {
-    uint32_t ii = htonl(i);
-    addInFront(static_cast<const char *>((void *)&ii), 4);
+    addInFront(static_cast<const char *>((void *)&i), 4);
 }
 void MsgBuffer::addInFrontInt64(const uint64_t l)
 {
-    uint64_t ll = hton64(l);
-    addInFront(static_cast<const char *>((void *)&ll), 8);
+    addInFront(static_cast<const char *>((void *)&l), 8);
 }
 
 uint16_t MsgBuffer::peekInt16() const
 {
     assert(readableBytes() >= 2);
     uint16_t rs = *(static_cast<const uint16_t *>((void *)peek()));
-    return ntohs(rs);
+    return rs;
 }
 uint32_t MsgBuffer::peekInt32() const
 {
     assert(readableBytes() >= 4);
     uint32_t rl = *(static_cast<const uint32_t *>((void *)peek()));
-    return ntohl(rl);
+    return rl;
 }
 uint64_t MsgBuffer::peekInt64() const
 {
     assert(readableBytes() >= 8);
     uint64_t rll = *(static_cast<const uint64_t *>((void *)peek()));
-    return ntoh64(rll);
+    return rll;
 }
 
 void MsgBuffer::retrieve(size_t len)
